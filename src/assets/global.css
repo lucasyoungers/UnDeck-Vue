@@ -1,0 +1,77 @@
+:root {
+    --gap: 18px;
+    --nav-height: 50px;
+    --p-purple: #4f2475;
+    --p-dark-purple: #3b165c;
+    --p-light-purple: #baa8ca;
+    --p-light-light-purple: #e6dfec;
+    --radius: 5px;
+    --item-size: 100px;
+    --item-spacing: calc(var(--item-size) / 10);
+    --item-color: var(--p-purple);
+    --timing: 3000ms;
+}
+
+@keyframes bounce {
+    from     { transform: scale(100%) }
+    50%      { transform: scale(140%, 60%) }
+    65%      { transform: scale(80%, 120%) }
+    82.5%    { transform: scale(120%, 80%) }
+    to       { transform: scale(100%) }
+}
+
+body {
+    background-image: url("@/assets/images/subtle-pattern-vector.png");
+    background-color: #baa8ca;
+    min-height: 100%;
+    position: relative;
+}
+
+.noscroll {
+    overflow: hidden !important;
+}
+
+body,
+body * {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    color: var(--p-light-purple);
+}
+
+a:visited {
+    color: var(--p-purple)
+}
+
+a.link-disabled {
+    pointer-events: none;
+}
+
+i.material-icons {
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--p-dark-purple);
+}
+
+button:hover i {
+    animation: bounce ease-in-out 0.5s;
+}
+
+.hidden {
+    display: none;
+}
+
+.offscreen {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
