@@ -1,30 +1,31 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <Nav @deleteDeck="deckStore.deleteDeck" />
+    <router-view v-if="$route.name === 'Search'" :key="$route.query" />
+    <router-view v-else :cards="$route.name === 'Home' ? cards : deckStore.deck" />
+    <Modal v-if="modalStore.isOpen" />
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+    import Nav from "@/components/nav/Nav"
+    import Modal from "@/components/modals/Modal"
+    import getCards from "@/composables/getCards"
+    import useDeckStore from "@/stores/deck"
+    import useModalStore from "@/stores/modal"
+    import { onMounted } from "vue"
 
-nav {
-  padding: 30px;
-}
+    export default {
+        name: "App",
+        components: { Nav, Modal },
+        setup() {
+            const { cards, error, loadCards } = getCards() // TODO: error handling
+            loadCards()
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+            const deckStore = useDeckStore()
+            if (localStorage.deck) deckStore.loadDeck(localStorage.deck)
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+            const modalStore = useModalStore()
+
+            return { cards, error, deckStore, modalStore }
+        }
+    }
+</script>
