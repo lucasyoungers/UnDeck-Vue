@@ -17,7 +17,7 @@
         setup(props) {
             const modalStore = useModalStore()
 
-            const openModal = () => modalStore.openModal("image", props.card)
+            const openModal = () => modalStore.openModal("info", props.card)
 
             return { openModal }
         }
