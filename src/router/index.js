@@ -11,7 +11,7 @@ const routes = [
     {
         path: "/search",
         name: "Search",
-        component: lazyLoad("Search")
+        component: lazyLoad("Search"),
     },
     {
         path: "/deck",
@@ -23,6 +23,10 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
+})
+
+router.afterEach((to, from) => {
+    document.title = `UnDeck - ${to.name}`
 })
 
 export default router
