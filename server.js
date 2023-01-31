@@ -104,7 +104,7 @@ app.get("/api/search", async (req, res) => {
 
         q = q.join(" ")
 
-        const cards = await pokemon.card.where({ q, orderBy: "-set.releaseDate, number", pageSize: 50 })
+        const cards = await pokemon.card.where({ q, orderBy: "-set.releaseDate, number" })
         res.json(cards)
     } catch (err) {
         res.status(500).type("text").send("We can't find your cards! Looks like Team Rocket is up to no good.")
