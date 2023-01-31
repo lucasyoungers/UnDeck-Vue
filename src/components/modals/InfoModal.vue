@@ -15,7 +15,7 @@
                     <a
                         class="modal-subtype"
                         v-for="subtype in card.subtypes"
-                        :href="makeSearchURL(subtype)"
+                        :href="makeSearchURL(`subtypes`, subtype)"
                         :key="subtype"
                     >{{ subtype }}</a>
                 </section>
@@ -37,8 +37,8 @@
                 <section class="modal-attacks" v-if="card.attacks?.length > 0">
                     <section class="modal-attack" v-for="attack in card.attacks">
                         <section class="modal-attack-main">
-                            <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png">
-                            <img class="modal-attack-icon" v-else v-for="type in attack.cost" :src="`/type_icons/${type}.svg`">
+                            <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png" alt="None">
+                            <img class="modal-attack-icon" v-else v-for="type in attack.cost" :src="`/type_icons/${type}.svg`" :alt="type">
                             <span class="modal-attack-name">{{ attack.name }}</span>
                             <span class="modal-damage">{{ attack.damage }}</span>
                         </section>
@@ -47,7 +47,32 @@
                 </section>
             </main>
             <footer class="modal-footer">
-                footer
+                <section class="modal-wrrc" v-if="card.weaknesses || card.resistances || card.retreatCost">
+                    <section class="modal-weakness">
+                        <label>Weakness:</label>
+                        <img class="modal-wrrc-type" v-if="card.weaknesses" v-for="{ type } in card.weaknesses" :src="`/type_icons/${type}.svg`" :alt="type">
+                    </section>
+                    <section class="modal-resistance">
+                        <label>Resistance:</label>
+                        <img class="modal-wrrc-type" v-if="card.resistances" v-for="{ type } in card.resistances" :src="`/type_icons/${type}.svg`" :alt="type">
+                    </section>
+                    <section class="modal-retreat-cost">
+                        <label>Retreat Cost:</label>
+                        <img class="modal-wrrc-type" v-if="card.retreatCost" v-for="type in card.retreatCost" :src="`/type_icons/${type}.svg`" :alt="type">
+                    </section>
+                </section>
+                <section class="modal-subtypes">
+                    <a
+                        class="modal-subtype"
+                        :href="makeSearchURL(`set.id`, card.set.id)"
+                        :key="card.set.id"
+                    >{{ card.set.name }}</a>
+                    <a
+                        class="modal-subtype"
+                        :href="makeSearchURL(`rarity`, card.rarity)"
+                        :key="card.rarity"
+                    >{{ card.rarity }}</a>
+                </section>
             </footer>
         </section>
     </article>
@@ -62,9 +87,9 @@
         setup() {
             const { card } = useModalStore()
 
-            const makeSearchURL = subtype => `/search?q=subtypes:"${subtype}"`
+            const makeSearchURL = (query, subtype) => `/search?q=${query}:"${subtype}"`
 
-            console.log(card);
+            console.log(card)
 
             return { card, makeSearchURL }
         }
@@ -143,7 +168,7 @@
     .modal-ability-main, .modal-attack-main {
         display: flex;
         align-items: center;
-        column-gap: 0.5em;
+        column-gap: 0.5rem;
     }
 
     .modal-ability-type, .modal-ability-name, .modal-attack-name, .modal-damage {
@@ -162,5 +187,28 @@
     .modal-damage {
         flex-grow: 1;
         text-align: right;
+    }
+
+    .modal-footer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.75rem;
+    }
+
+    .modal-wrrc {
+        font-size: 1.25em;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .modal-wrrc > * {
+        display: flex;
+        align-items: center;
+    }
+
+    .modal-wrrc-type {
+        height: 1.5em;
+        width: 1.5em;
+        padding-left: 0.125em;
     }
 </style>
