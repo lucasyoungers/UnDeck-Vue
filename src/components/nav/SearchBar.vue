@@ -34,7 +34,7 @@
                 if (name.value !== "") query.name = name.value
                 name.value = ""
 
-                if (advancedMenu) {
+                if (searchStore.advancedMenuIsOpen) {
                     const selects = advancedMenu.querySelectorAll("select")
                     const q = [...selects].map(s => {
                         return `${s.name}:"${[...s.selectedOptions]
