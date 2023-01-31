@@ -20,12 +20,12 @@
                     >{{ subtype }}</a>
                 </section>
             </header>
-            <main class="modal-body">
-                <section class="modal-rules" v-if="card.rules?.length > 0">
+            <main class="modal-body" v-if="card.rules || card.abilities || card.attacks">
+                <section class="modal-rules" v-if="card.rules">
                     <h2 class="modal-subheading">Rules:</h2>
                     <p class="modal-rule" v-for="rule in card.rules">{{ rule }}</p>
                 </section>
-                <section class="modal-abilities" v-if="card.abilities?.length > 0">
+                <section class="modal-abilities" v-if="card.abilities">
                     <section class="modal-ability" v-for="ability in card.abilities">
                         <section class="modal-ability-main">
                             <span class="modal-ability-type" :data-type="ability.type">[{{ ability.type }}]</span>
@@ -34,7 +34,7 @@
                         <p class="modal-ability-effect">{{ ability.text }}</p>
                     </section>
                 </section>
-                <section class="modal-attacks" v-if="card.attacks?.length > 0">
+                <section class="modal-attacks" v-if="card.attacks">
                     <section class="modal-attack" v-for="attack in card.attacks">
                         <section class="modal-attack-main">
                             <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png" alt="None">
@@ -89,8 +89,6 @@
 
             const makeSearchURL = (query, subtype) => `/search?q=${query}:"${subtype}"`
 
-            console.log(card)
-
             return { card, makeSearchURL }
         }
     }
@@ -99,7 +97,7 @@
 <style scoped>
     .modal-wrapper {
         width: 640px;
-        height: 95vh;
+        /* height: 95vh; */
         background-color: white;
         border-radius: 1rem;
         padding: 0 1rem;
