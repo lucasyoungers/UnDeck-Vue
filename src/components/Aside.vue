@@ -12,6 +12,7 @@
 <script>
     import Chart from "@/components/Chart"
     import useDeckStore from "@/stores/deck"
+    import { openDeckPDF } from "@/lib/utils"
 
     export default {
         name: "Aside",
@@ -19,9 +20,9 @@
         setup() {
             const deckStore = useDeckStore()
 
+            const downloadDeck = () => openDeckPDF(window.localStorage.deck)
 
-
-            return { deckStore }
+            return { deckStore, downloadDeck }
         }
     }
 </script>
