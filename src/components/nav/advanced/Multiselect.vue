@@ -1,7 +1,7 @@
 <template>
     <section>
         <label>{{ u_name }}</label>
-        <select :name="l_name" :ref="l_name" multiple>
+        <select :name="query" :ref="query" multiple>
             <option
                 v-for="option in options"
                 :value="option"
@@ -13,7 +13,7 @@
 <script>
 export default {
     name: "Multiselect",
-    props: [ "u_name", "options" ],
+    props: [ "u_name", "query", "options" ],
     setup(props) {
         const l_name = props.u_name.toLowerCase()
 

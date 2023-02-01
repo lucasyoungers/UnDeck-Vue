@@ -1,18 +1,19 @@
 <template>
-    <Multiselect u_name="Series" :options="seriesList" />
+    <Multiselect u_name="Series" query="set.series" :options="series" />
 </template>
 
 <script>
 import Multiselect from "@/components/nav/advanced/Multiselect"
-import getSeriesList from "@/composables/getSeriesList"
+import getSeries from "@/composables/getSeries"
 
 export default {
     name: "Series",
     components: { Multiselect },
     setup() {
-        const { seriesList } = getSeriesList()
+        const { series, loadSeries } = getSeries()
+        loadSeries()
 
-        return { seriesList }
+        return { series }
     }
 }
 </script>

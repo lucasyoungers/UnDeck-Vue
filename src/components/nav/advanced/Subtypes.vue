@@ -1,5 +1,5 @@
 <template>
-    <Multiselect u_name="Subtypes" :options="subtypes" />
+    <Multiselect u_name="Subtypes" query="subtypes" :options="subtypes" />
 </template>
 
 <script>

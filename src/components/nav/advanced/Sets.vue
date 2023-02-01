@@ -1,7 +1,7 @@
 <template>
     <section>
         <label>Set</label>
-        <select name="set" ref="set" multiple>
+        <select name="set.id" ref="set" multiple>
             <option
                 v-for="set in sets"
                 :key="set?.id"

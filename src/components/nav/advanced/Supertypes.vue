@@ -1,5 +1,5 @@
 <template>
-    <Multiselect u_name="Supertypes" :options="supertypes" />
+    <Multiselect u_name="Supertypes" query="supertype" :options="supertypes" />
 </template>
 
 <script>
