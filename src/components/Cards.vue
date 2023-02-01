@@ -14,11 +14,6 @@
     <main class="loading" v-else>
         <BreedingRhombusSpinner class="spinner" color="#3b165c" :size="300" />
     </main>
-    <!-- <main class="no-cards" v-else>
-        <img src="no-cards.png" alt="no cards found">
-        <span>No Cards Found!</span>
-        <img src="no-cards.png" alt="no cards found">
-    </main> -->
 </template>
 
 <script>
