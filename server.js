@@ -111,21 +111,6 @@ app.get("/api/search", async (req, res) => {
     }
 })
 
-// // get all cards that match a given query
-// app.get("/api/search", async (req, res) => {
-//     try {
-//         const { q } = req.query
-//         if (q !== undefined) {
-//             const cards = await pokemon.card.where({ q, orderBy: "-set.releaseDate, number" })
-//             res.json(cards)
-//         } else {
-//             res.status(400).type("text").send("Missing required query parameter: q")
-//         }
-//     } catch (err) {
-//         res.status(500).type("text").send("We can't find your cards! Looks like Team Rocket is up to no good.")
-//     }
-// })
-
 // get the json data for a given deck string
 app.get("/api/deck/:deck", async (req, res) => {
     try {
@@ -141,10 +126,71 @@ app.get("/api/deck/:deck", async (req, res) => {
     }
 })
 
+// make a pdf for a given deck string
+app.get("/api/pdf/:deckString", async (req, res) => {
+    try {
+        const deck = await getDeckCards(req.params.deckString)
+        const images = deck.map(card => card.images.large)
+        const pdf = await makePDF(images)
+        const buffer = Buffer.from(pdf)
+        res.type("pdf").send(buffer)
+    } catch (err) {
+        res.status(500).send("We can't build your deck, have you tried unsleeving it and resleeving it again?")
+    }
+})
+
 // send file backup endpoint
 app.get("*", (_, res) => {
     res.type("html").sendFile(path.join(__dirname, "dist", "index.html"))
 })
+
+// ================
+// Helper Functions
+// ================
+
+/**
+ * Gets all the card objects from a given deck string and returns them in an array
+ * @param {String} deckString - deck string with | delimiter
+ * @returns {Promise<Array<Object>>} - promise that resolves to an array of card objects
+ */
+async function getDeckCards(deckString) {
+    return Promise.all(deckString.split("|").map(item => {
+        const [ id, count ] = item.split("~")
+        return Array(parseInt(count)).fill(id)
+    }).flat().map(id => pokemon.card.find(id)))
+}
+
+/**
+ * Constructs a pdf given an array of card image urls.
+ * @param {Array<String>} deck - array of card image urls
+ * @returns {Promise<ArrayBuffer>} - array buffer for the deck pdf
+ */
+async function makePDF(deck) {
+    const doc = new jsPDF({ format: "letter", unit: "in" })
+    for (let i = 0; i < deck.length; i++) {
+        if (i > 8 && i % 9 === 0) doc.addPage("letter")
+        const x = 0.53 + 2.49 * (i % 3)
+        const y = 0.3 + 3.47 * Math.floor((i % 9) / 3)
+        const buffer = await axios.get(deck[i], {
+            headers: { "X-API-KEY": KEY },
+            responseType: "arraybuffer"
+        }).then(statusCheck)
+        const img = Buffer.from(buffer.data, "binary").toString("base64")
+        const data = "data:image/png;base64," + img
+        doc.addImage(data, "png", x, y, 2.48, 3.46)
+    }
+    return doc.output("arraybuffer")
+}
+
+/**
+ * Validates the status of the response.
+ * @param {Response} res - any response to be checked
+ * @returns {Promise} - returns the passed response as a promise
+ */
+async function statusCheck(res) {
+    if (res.statusText !== "OK") throw new Error("an error occurred, try again later")
+    return res
+}
 
 function objectToQuery(obj) {
     return Object.keys(obj).reduce((q, key) => [...q, `${key}:${obj[key]}`], []).join(" ")
