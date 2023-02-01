@@ -6,20 +6,35 @@
             :card="card"
         />
     </main>
-    <main class="no-cards" v-else>
+    <main class="no-cards" v-else-if="errorStore.cardsNotFound">
         <img src="no-cards.png" alt="no cards found">
         <span>No Cards Found!</span>
         <img src="no-cards.png" alt="no cards found">
     </main>
+    <main class="loading" v-else>
+        <BreedingRhombusSpinner class="spinner" color="#3b165c" :size="300" />
+    </main>
+    <!-- <main class="no-cards" v-else>
+        <img src="no-cards.png" alt="no cards found">
+        <span>No Cards Found!</span>
+        <img src="no-cards.png" alt="no cards found">
+    </main> -->
 </template>
 
 <script>
     import Card from "@/components/card/Card"
+    import { BreedingRhombusSpinner } from "epic-spinners"
+    import useErrorStore from "@/stores/error"
 
     export default {
         name: "Cards",
-        components: { Card },
-        props: [ "cards" ]
+        components: { Card, BreedingRhombusSpinner },
+        props: [ "cards" ],
+        setup() {
+            const errorStore = useErrorStore()
+
+            return { errorStore }
+        }
     }
 </script>
 
@@ -30,11 +45,14 @@
         grid-gap: var(--gap);
     }
 
-    main.no-cards {
+    main.loading, main.no-cards {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+    }
+
+    main.loading > .spinner {
+        margin-top: 100px;
     }
 
     main.no-cards > img {
