@@ -28,6 +28,6 @@
     "@vue/cli-service": "~5.0.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "^12.8.1"
   }
 }
