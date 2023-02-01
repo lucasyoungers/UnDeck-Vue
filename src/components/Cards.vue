@@ -1,10 +1,15 @@
 <template>
-    <main>
+    <main class="cards" v-if="cards?.length > 0">
         <Card
             v-for="card in cards"
             :key="card?.id"
             :card="card"
         />
+    </main>
+    <main class="no-cards" v-else>
+        <img src="no-cards.png" alt="no cards found">
+        <span>No Cards Found!</span>
+        <img src="no-cards.png" alt="no cards found">
     </main>
 </template>
 
@@ -19,10 +24,29 @@
 </script>
 
 <style scoped>
-    main {
+    main.cards {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-gap: var(--gap);
+    }
+
+    main.no-cards {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    main.no-cards > img {
+        height: 30vh;
+    }
+
+    main.no-cards > span {
+        font-size: 4em;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 0.25em;
+        background-color: white;
     }
 
     main.deck-cards {
