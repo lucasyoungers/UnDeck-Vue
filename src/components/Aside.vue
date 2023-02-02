@@ -2,6 +2,7 @@
     <aside>
         <h2>Deck Details</h2>
         <Chart />
+        <DeckIO />
         <button @click="downloadDeck">
             <i class="material-icons">download</i>
             <span>Download Deck</span>
@@ -11,12 +12,13 @@
 
 <script>
     import Chart from "@/components/Chart"
+    import DeckIO from "@/components/DeckIO"
     import useDeckStore from "@/stores/deck"
     import { openDeckPDF } from "@/lib/utils"
 
     export default {
         name: "Aside",
-        components: { Chart },
+        components: { Chart, DeckIO },
         setup() {
             const deckStore = useDeckStore()
 
