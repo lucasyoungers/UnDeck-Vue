@@ -24,6 +24,10 @@ pokemon.configure({ apiKey: KEY })
 // Endpoints
 // =========
 
+app.get("/test", (req, res) => {
+    res.type("text").send("working!");
+})
+
 app.get("/api/sets", async (req, res) => {
     try {
         const { series } = req.query
@@ -198,3 +202,4 @@ function objectToQuery(obj) {
 
 const PORT = process.env.PORT || 3080
 app.listen(PORT)
+console.log(`Listening at port ${PORT}`)
