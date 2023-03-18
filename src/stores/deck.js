@@ -1,6 +1,8 @@
 import { defineStore } from "pinia"
 import { statusCheck, clone, updateLocalDeck } from "@/lib/utils"
 
+const path = process.env.NODE_ENV === "development" ? "http://localhost:3080" : "";
+
 const useDeckStore = defineStore("deck", {
     state() {
         return {
@@ -23,7 +25,7 @@ const useDeckStore = defineStore("deck", {
     },
     actions: {
         async loadDeck(deck) {
-            fetch(`http://localhost:3080/api/deck/${deck}`) // TODO: remove localhost url
+            fetch(path + `/api/deck/${deck}`)
                 .then(statusCheck)
                 .then(res => res.json())
                 .then(deck => this.deck = deck)

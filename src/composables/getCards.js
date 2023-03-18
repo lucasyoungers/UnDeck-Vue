@@ -2,6 +2,8 @@ import { ref } from "vue"
 import { statusCheck } from "@/lib/utils"
 import useErrorStore from "@/stores/error"
 
+const path = process.env.NODE_ENV === "development" ? "http://localhost:3080" : "";
+
 const getCards = () => {
     const errorStore = useErrorStore()
     const cards = ref([])
@@ -9,7 +11,7 @@ const getCards = () => {
     const loadCards = async () => {
         try {
             errorStore.setCardsNotFound(false)
-            const res = await fetch("http://localhost:3080/api/random?pageSize=50") // TODO: remove localhost url
+            const res = await fetch(path + "/api/random?pageSize=50")
             await statusCheck(res)
             const data = await res.json()
             if (data.count == 0) {

@@ -2,6 +2,8 @@ import { ref } from "vue"
 import { statusCheck } from "@/lib/utils"
 import useErrorStore from "@/stores/error"
 
+const path = process.env.NODE_ENV === "development" ? "http://localhost:3080" : "";
+
 const getSearchCards = query => {
     const errorStore = useErrorStore()
     const searchCards = ref([])
@@ -11,7 +13,7 @@ const getSearchCards = query => {
         try {
             errorStore.setCardsNotFound(false)
             const queryParams = new URLSearchParams(query)
-            const res = await fetch(`http://localhost:3080/api/search?${queryParams.toString()}`)
+            const res = await fetch(path + `/api/search?${queryParams.toString()}`)
             await statusCheck(res)
             const data = await res.json()
             if (data.count == 0) {
