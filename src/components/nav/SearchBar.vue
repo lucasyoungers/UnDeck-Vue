@@ -42,7 +42,8 @@
                             .join("|")}"`
                     }).filter(q => q.slice(q.length - 2) !== `""`).join(" ")
                     query.q = q
-                    searchStore.toggleAdvancedMenu()
+                    // This causes the advanced menu to close on search.
+                    // searchStore.toggleAdvancedMenu()
                 }
 
                 router.push({ name: "Search", query })
