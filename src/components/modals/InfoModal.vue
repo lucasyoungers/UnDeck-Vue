@@ -5,11 +5,15 @@
                 <section class="modal-header-top">
                     <h1 class="modal-name">{{ card.name }}</h1>
                     <span class="modal-hp" v-if="card.hp">{{ card.hp }}HP</span>
-                    <img
-                        class="modal-type"
+                    <a
                         v-for="type in card.types"
-                        :src="`/type_icons/${type}.svg`"
-                        :alt="type">
+                        :href="makeSearchURL(`types`, type)"
+                        :key="type">
+                        <img
+                            class="modal-type"
+                            :src="`/type_icons/${type}.svg`"
+                            :alt="type">
+                    </a>
                 </section>
                 <section class="modal-subtypes">
                     <a
