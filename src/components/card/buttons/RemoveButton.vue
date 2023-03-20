@@ -16,7 +16,7 @@
             const router = useRouter()
 
             const removeCard = id => {
-                deckStore.removeCard(id)
+                deckStore.remove(id)
                 if (deckStore.deck.length === 0) {
                     router.push({ name: "Home" })
                 }

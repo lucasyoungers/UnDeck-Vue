@@ -27,7 +27,7 @@ export default {
             window.localStorage.deck = newDeck.value
             currDeck.value = newDeck.value
             newDeck.value = ""
-            deckStore.loadDeck(currDeck.value)
+            deckStore.load(currDeck.value)
         }
         const getCurrDeck = () => navigator.clipboard.writeText(window.localStorage.deck)
 

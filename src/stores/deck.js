@@ -1,5 +1,6 @@
 import { defineStore } from "pinia"
 import { statusCheck, clone, updateLocalDeck } from "@/lib/utils"
+import { cardCompareFn } from "@/lib/deckUtils"
 
 const path = process.env.NODE_ENV === "development" ? "http://localhost:3080" : "";
 
@@ -24,17 +25,17 @@ const useDeckStore = defineStore("deck", {
         }
     },
     actions: {
-        async loadDeck(deck) {
+        async load(deck) {
             fetch(path + `/api/deck/${deck}`)
                 .then(statusCheck)
                 .then(res => res.json())
                 .then(deck => this.deck = deck)
         },
-        deleteDeck() {
+        clear() {
             this.deck = []
             updateLocalDeck(this.deck)
         },
-        addCard(newCard) {
+        add(newCard) {
             localStorage.deck = newCard.id
             newCard = clone(newCard)
             const deckCard = this.deck.find(card => card.id === newCard.id)
@@ -43,10 +44,11 @@ const useDeckStore = defineStore("deck", {
             } else {
                 newCard.count = 1
                 this.deck.push(newCard)
+                this.deck.sort(cardCompareFn)
             }
             updateLocalDeck(this.deck)
         },
-        removeCard(id) {
+        remove(id) {
             const deckCard = this.deck.find(card => card.id === id)
             if (deckCard) {
                 deckCard.count--
@@ -55,6 +57,9 @@ const useDeckStore = defineStore("deck", {
                 }
             }
             updateLocalDeck(this.deck)
+        },
+        sort() {
+            this.deck.sort(cardCompareFn)
         }
     }
 })

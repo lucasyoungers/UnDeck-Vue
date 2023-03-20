@@ -1,5 +1,5 @@
 <template>
-    <Nav @deleteDeck="deckStore.deleteDeck" />
+    <Nav @deleteDeck="deckStore.clear" />
     <router-view v-if="$route.name === 'Search'" :key="$route.query" />
     <router-view v-else :cards="$route.name === 'Home' ? cards : deckStore.deck" />
     <Modal v-if="modalStore.isOpen" />
@@ -21,7 +21,7 @@
             loadCards()
 
             const deckStore = useDeckStore()
-            if (localStorage.deck) deckStore.loadDeck(localStorage.deck)
+            if (localStorage.deck) deckStore.load(localStorage.deck)
 
             const modalStore = useModalStore()
 

@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router'
             const router = useRouter()
 
             const deleteDeck = () => {
-                deckStore.deleteDeck()
+                deckStore.clear()
                 router.push({ name: "Home" })
             }
 

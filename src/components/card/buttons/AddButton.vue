@@ -1,5 +1,5 @@
 <template>
-    <Button @click="deckStore.addCard(card)" icon="add_circle_outline" />
+    <Button @click="deckStore.add(card)" icon="add_circle_outline" />
 </template>
 
 <script>
