@@ -16,6 +16,7 @@ const getSearchCards = query => {
             const res = await fetch(path + `/api/search?${queryParams.toString()}`)
             await statusCheck(res)
             const data = await res.json()
+            console.log(data)
             if (data.count == 0) {
                 errorStore.setCardsNotFound(true)
             }

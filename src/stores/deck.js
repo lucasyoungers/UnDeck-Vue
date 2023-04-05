@@ -15,13 +15,13 @@ const useDeckStore = defineStore("deck", {
             return this.deck.reduce((total, card) => total + card.count, 0)
         },
         supertypes() {
-            const supertypes = {
+            return this.deck.reduce((acc, card) => Object.assign(acc, {
+                [card.supertype]: acc[card.supertype] + card.count
+            }), {
                 "Pokémon": 0,
                 "Trainer": 0,
-                "Energy":  0
-            }
-            this.deck.forEach(card => supertypes[card.supertype] += card.count || 1)
-            return supertypes
+                "Energy": 0
+            })
         }
     },
     actions: {
