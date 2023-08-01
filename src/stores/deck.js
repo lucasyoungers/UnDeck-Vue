@@ -36,14 +36,13 @@ const useDeckStore = defineStore("deck", {
             updateLocalDeck(this.deck)
         },
         add(newCard) {
-            localStorage.deck = newCard.id
-            newCard = clone(newCard)
             const deckCard = this.deck.find(card => card.id === newCard.id)
             if (deckCard) {
                 deckCard.count++
             } else {
-                newCard.count = 1
-                this.deck.push(newCard)
+                let newCardCopy = clone(newCard)
+                newCardCopy.count = 1
+                this.deck.push(newCardCopy)
                 this.deck.sort(cardCompareFn)
             }
             updateLocalDeck(this.deck)
