@@ -7,7 +7,9 @@ export const statusCheck = res => {
 
 export const clone = obj => JSON.parse(JSON.stringify(obj))
 
-export const updateLocalDeck = deck => localStorage.deck = deck.map(card => `${card.id}~${card.count}`).join("|")
+export const updateLocalDeck = deck => {
+    localStorage.deck = deck.map(card => `${card.id}~${card.count}`).join("|")
+}
 
 export const openDeckPDF = deckString => {
     fetch(path + `/api/pdf/${deckString}`)

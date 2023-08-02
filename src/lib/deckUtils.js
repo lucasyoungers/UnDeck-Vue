@@ -20,9 +20,14 @@ const typeTable = {
 
 const trainerTable = {
     "Supporter": 0,
-    "Trainer": 1,
+    "Item": 1,
     "Pokémon Tool": 2,
     "Stadium": 3
+}
+
+const energyTable = {
+    "Special": 0,
+    "Basic": 1
 }
 
 export const cardCompareFn = (card1, card2) => {
@@ -44,10 +49,15 @@ export const cardCompareFn = (card1, card2) => {
 
     // Special -> Basic
     if (card1.supertype === "Energy") {
-        if (card1.subtypes && card2.subtypes) {
-            return card2.subtypes.contains("Special") - card1.subtypes.contains("Special")
+        if (card1.subtypes[0] !== card2.subtypes[0]) {
+            return energyTable[card1.subtypes[0]] - energyTable[card2.subtypes[0]]
         } else {
-            return typeTable[card1.name.substr(0, card1.name.indexOf(" "))] - typeTable[card2.name.substr(0, card2.name.indexOf(" "))]
+            const card1StartIndex = (card1.name.indexOf("Basic") === 0) ? 6 : 0;
+            const card2StartIndex = (card2.name.indexOf("Basic") === 0) ? 6 : 0;
+            return (
+                typeTable[card1.name.substr(card1StartIndex, card1.name.indexOf(" "))] -
+                typeTable[card2.name.substr(card2StartIndex, card2.name.indexOf(" "))]
+            );
         }
     }
 
