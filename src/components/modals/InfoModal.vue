@@ -5,23 +5,19 @@
                 <section class="modal-header-top">
                     <h1 class="modal-name">{{ card.name }}</h1>
                     <span class="modal-hp" v-if="card.hp">{{ card.hp }}HP</span>
-                    <a
-                        v-for="type in card.types"
-                        :href="makeSearchURL(`types`, type)"
-                        :key="type">
-                        <img
-                            class="modal-type"
-                            :src="`/type_icons/${type}.svg`"
-                            :alt="type">
+                    <a v-for="_type in card.types"
+                            :href="makeSearchURL(`types`, _type)"
+                            :key="_type">
+                        <img class="modal-type" :src="`/type_icons/${_type}.svg`" :alt="_type">
                     </a>
                 </section>
                 <section class="modal-subtypes">
-                    <a
-                        class="modal-subtype"
-                        v-for="subtype in card.subtypes"
-                        :href="makeSearchURL(`subtypes`, subtype)"
-                        :key="subtype"
-                    >{{ subtype }}</a>
+                    <a class="modal-subtype"
+                            v-for="subtype in card.subtypes"
+                            :href="makeSearchURL(`subtypes`, subtype)"
+                            :key="subtype">
+                        {{ subtype }}
+                    </a>
                 </section>
             </header>
             <main class="modal-body" v-if="card.rules || card.abilities || card.attacks">
@@ -42,7 +38,7 @@
                     <section class="modal-attack" v-for="attack in card.attacks">
                         <section class="modal-attack-main">
                             <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png" alt="None">
-                            <img class="modal-attack-icon" v-else v-for="type in attack.cost" :src="`/type_icons/${type}.svg`" :alt="type">
+                            <img class="modal-attack-icon" v-else v-for="_type in attack.cost" :src="`/type_icons/${_type}.svg`" :alt="_type">
                             <span class="modal-attack-name">{{ attack.name }}</span>
                             <span class="modal-damage">{{ attack.damage }}</span>
                         </section>
@@ -62,7 +58,7 @@
                     </section>
                     <section class="modal-retreat-cost">
                         <label>Retreat Cost:</label>
-                        <img class="modal-wrrc-type" v-if="card.retreatCost" v-for="type in card.retreatCost" :src="`/type_icons/${type}.svg`" :alt="type">
+                        <img class="modal-wrrc-type" v-if="card.retreatCost" v-for="_type in card.retreatCost" :src="`/type_icons/${_type}.svg`" :alt="_type">
                     </section>
                 </section>
                 <section class="modal-subtypes">
@@ -101,7 +97,6 @@
 <style scoped>
     .modal-wrapper {
         width: 640px;
-        /* height: 95vh; */
         background-color: white;
         border-radius: 1rem;
         padding: 0 1rem;
@@ -117,11 +112,13 @@
         border-bottom: none;
     }
 
-    .modal-body > * {
+    .modal-body > *, .modal-abilities > *, .modal-attacks > * {
         padding-bottom: 0.75rem;
     }
 
-    .modal-body > :last-child {
+    .modal-body > :last-child,
+    .modal-abilities > :last-child,
+    .modal-attacks > :last-child {
         padding-bottom: 0;
     }
 
