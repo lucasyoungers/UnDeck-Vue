@@ -1,10 +1,6 @@
 <template>
     <main class="cards" v-if="cards?.length > 0">
-        <Card
-            v-for="card in cards"
-            :key="card?.id"
-            :card="card"
-        />
+        <Card v-for="card in cards" :key="card?.id" :card="card" />
     </main>
     <main class="no-cards" v-else-if="errorStore.cardsNotFound">
         <img src="no-cards.png" alt="no cards found">

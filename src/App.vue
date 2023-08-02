@@ -11,7 +11,7 @@
     import getCards from "@/composables/getCards"
     import useDeckStore from "@/stores/deck"
     import useModalStore from "@/stores/modal"
-    import { onMounted } from "vue"
+    import { useRoute } from "vue-router"
 
     export default {
         name: "App",
@@ -19,6 +19,18 @@
         setup() {
             const { cards, error, loadCards } = getCards() // TODO: error handling
             loadCards()
+
+            const route = useRoute()
+
+            // If on home view, allow more cards to be loaded.
+            const loadMoreCards = async () => {
+                if (route.name === "Home" && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    window.removeEventListener("scroll", loadMoreCards)
+                    await loadCards()
+                    window.addEventListener("scroll", loadMoreCards)
+                }
+            }
+            window.addEventListener("scroll", loadMoreCards)
 
             const deckStore = useDeckStore()
             if (localStorage.deck) deckStore.load(localStorage.deck)

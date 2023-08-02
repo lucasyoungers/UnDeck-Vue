@@ -17,7 +17,7 @@ const getCards = () => {
             if (data.count == 0) {
                 errorStore.setCardsNotFound(true)
             }
-            cards.value = data.data.sort(() => Math.random() - 0.5)
+            cards.value = cards.value.concat(data.data.sort(() => Math.random() - 0.5))
         } catch (err) {
             error.value = err.message
         }

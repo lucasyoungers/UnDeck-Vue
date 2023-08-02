@@ -96,19 +96,28 @@ app.get("/api/search", async (req, res) => {
         let q = []
 
         // manually add important parameters
-        const { name } = req.query
+        const { name, pageSize = 1, page = 1 } = req.query
         const queryObject = {}
-        if (name) queryObject.name = ["N", "AZ"].includes(name) ? name : `"*${name}*"` // hardcoded exact search
+        queryObject.name = ["N", "AZ"].includes(name)
+            ? name  // hardcoded exact search
+            : `"*${name}*"`  // standard fuzzy search
         const queryLeft = objectToQuery(queryObject)
-        if (queryLeft) q.push(queryLeft)
+        if (queryLeft) {
+            q.push(queryLeft)
+        }
 
         // automatically add other parameters
         const queryRight = req.query.q
-        if (queryRight) q.push(queryRight)
+        if (queryRight) {
+            q.push(queryRight)
+        }
 
         q = q.join(" ")
 
-        const cards = await pokemon.card.where({ q, orderBy: "-set.releaseDate, number" })
+        const cards = await pokemon.card.where({
+            q, pageSize, page,
+            orderBy: "-set.releaseDate, number"
+        })
         res.json(cards)
     } catch (err) {
         res.status(500).type("text").send("We can't find your cards! Looks like Team Rocket is up to no good.")

@@ -8,11 +8,13 @@ const getSearchCards = query => {
     const errorStore = useErrorStore()
     const searchCards = ref([])
     const searchError = ref(null)
+    let page = 1
     const loadSearchCards = async () => {
-        searchCards.value = []
         try {
             errorStore.setCardsNotFound(false)
-            const queryParams = new URLSearchParams(query)
+            let queryParams = new URLSearchParams(query)
+            queryParams.append("pageSize", 50)
+            queryParams.append("page", page)
             const res = await fetch(path + `/api/search?${queryParams.toString()}`)
             await statusCheck(res)
             const data = await res.json()
@@ -20,7 +22,8 @@ const getSearchCards = query => {
             if (data.count == 0) {
                 errorStore.setCardsNotFound(true)
             }
-            searchCards.value = data.data
+            searchCards.value = searchCards.value.concat(data.data)
+            page += 1
         } catch (err) {
             searchError.value = err.message
         }
