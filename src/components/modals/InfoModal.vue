@@ -37,8 +37,10 @@
                 <section class="modal-attacks" v-if="card.attacks">
                     <section class="modal-attack" v-for="attack in card.attacks">
                         <section class="modal-attack-main">
-                            <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png" alt="None">
-                            <img class="modal-attack-icon" v-else v-for="_type in attack.cost" :src="`/type_icons/${_type}.svg`" :alt="_type">
+                            <section class="modal-attack-cost">
+                                <img class="modal-attack-icon" v-if="attack.convertedEnergyCost == 0" src="/type_icons/None.png" alt="None">
+                                <img class="modal-attack-icon" v-else v-for="_type in attack.cost" :src="`/type_icons/${_type}.svg`" :alt="_type">
+                            </section>
                             <span class="modal-attack-name">{{ attack.name }}</span>
                             <span class="modal-damage">{{ attack.damage }}</span>
                         </section>
@@ -168,6 +170,11 @@
         display: flex;
         align-items: center;
         column-gap: 0.5rem;
+    }
+
+    .modal-attack-cost {
+        display: flex;
+        column-gap: 0.1rem;
     }
 
     .modal-ability-type, .modal-ability-name, .modal-attack-name, .modal-damage {
