@@ -1,6 +1,6 @@
 <template>
-    <router-link :to="{ name: 'Deck' }" :class="{ 'link-disabled': !deckStore.count }">
-        <Button icon="format_list_bulleted" rounded="left" :disabled="$route.name === 'Deck' || !deckStore.count">
+    <router-link :to="{ name: 'Deck' }" :class="{ 'link-disabled': $route.name === 'Deck' }">
+        <Button icon="format_list_bulleted" rounded="left" :disabled="$route.name === 'Deck'">
             Deck&nbsp;<span v-if="deckStore.count">({{ deckStore.count }})</span>
         </Button>
     </router-link>
