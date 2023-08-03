@@ -7,11 +7,8 @@
 <script>
     import Nav from "@/components/nav/Nav"
     import Modal from "@/components/modals/Modal"
-    import getCards from "@/composables/getCards"
     import useDeckStore from "@/stores/deck"
     import useModalStore from "@/stores/modal"
-    import { computed, ref } from "vue"
-    import { useRoute } from "vue-router"
 
     export default {
         name: "App",
