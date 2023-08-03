@@ -5,9 +5,8 @@
 </template>
 
 <script>
-    import Chart from "chart.js/auto"
     import { Bar } from "vue-chartjs"
-    import { computed, onMounted, ref, watch } from "vue"
+    import { computed, ref } from "vue"
     import { storeToRefs } from "pinia"
     import useDeckStore from "@/stores/deck"
 
