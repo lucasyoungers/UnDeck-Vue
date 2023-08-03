@@ -1,5 +1,5 @@
 <template>
-    <Button icon="zoom_in" @click="openModal" />
+    <Button icon="zoom_in" @click="modalStore.openModal('image', card)" />
 </template>
 
 <script>
@@ -10,12 +10,10 @@
         name: "ZoomButton",
         components: { Button },
         props: [ "card" ],
-        setup(props) {
+        setup() {
             const modalStore = useModalStore()
 
-            const openModal = () => modalStore.openModal("image", props.card)
-
-            return { openModal }
+            return { modalStore }
         }
     }
 </script>
