@@ -38,7 +38,6 @@ export const cardCompareFn = (card1, card2) => {
 
     // Grass -> Fire -> Water -> etc
     if (card1.supertype === "Pokémon") {
-        // TODO: Naïve implementation, sort by secondary type as well.
         return typeTable[card1.types[0]] - typeTable[card2.types[0]]
     }
 
