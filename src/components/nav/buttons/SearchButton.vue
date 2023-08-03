@@ -1,5 +1,5 @@
 <template>
-    <Button icon="search" type="input" />
+    <Button icon="search" type="input" :disabled="isDisabled" />
 </template>
 
 <script>
@@ -7,6 +7,7 @@
 
     export default {
         name: "SearchButton",
-        components: { Button }
+        components: { Button },
+        props: [ "isDisabled" ]
     }
 </script>
