@@ -7,6 +7,9 @@
         <span>No Cards Found!</span>
         <img src="no-cards.png" alt="no cards found">
     </main>
+    <main class="no-deck" v-else-if="$route.name === 'Deck' && deckStore.count === 0">
+        <span>No Cards in Deck!</span>
+    </main>
     <main class="loading" v-else>
         <BreedingRhombusSpinner class="spinner" color="#3b165c" :size="300" />
     </main>
@@ -16,6 +19,7 @@
     import Card from "@/components/card/Card"
     import { BreedingRhombusSpinner } from "epic-spinners"
     import useErrorStore from "@/stores/error"
+    import useDeckStore from "@/stores/deck"
 
     export default {
         name: "Cards",
@@ -23,8 +27,9 @@
         props: [ "cards" ],
         setup() {
             const errorStore = useErrorStore()
+            const deckStore = useDeckStore()
 
-            return { errorStore }
+            return { errorStore, deckStore }
         }
     }
 </script>
@@ -36,7 +41,7 @@
         grid-gap: var(--gap);
     }
 
-    main.loading, main.no-cards {
+    main.loading, main.no-cards, main.no-deck {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,6 +57,14 @@
 
     main.no-cards > span {
         font-size: 4em;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 0.25em;
+        background-color: white;
+    }
+
+    main.no-deck > span {
+        font-size: 3em;
         padding: 1em;
         margin: 1em;
         border-radius: 0.25em;
