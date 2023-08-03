@@ -1,7 +1,7 @@
 <template>
     <article>
         <div v-if="card.count" class="count">{{ card.count }}×</div>
-        <img @click="openModal" :src="card.images.small" :alt="card.name">
+        <img @click="modalStore.openModal('info', card)" :src="card.images.small" :alt="card.name">
         <CardBottom :card="card" />
     </article>
 </template>
@@ -14,12 +14,10 @@
         name: "Card",
         components: { CardBottom },
         props: [ "card" ],
-        setup(props) {
+        setup() {
             const modalStore = useModalStore()
 
-            const openModal = () => modalStore.openModal("info", props.card)
-
-            return { openModal }
+            return { modalStore }
         }
     }
 </script>

@@ -1,8 +1,6 @@
 <template>
     <section>
-        <AddButton
-            :card="card"
-        />
+        <AddButton :card="card" />
         <RemoveButton v-if="$route.name === 'Deck'" :card="card" />
         <DownloadButton :card="card" />
         <ZoomButton :card="card" />
