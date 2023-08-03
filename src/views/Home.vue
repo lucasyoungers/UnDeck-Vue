@@ -6,11 +6,28 @@
 
 <script>
     import Cards from "@/components/Cards"
+    import getCards from "@/composables/getCards"
+    import { onMounted, onUnmounted } from "vue"
 
     export default {
         name: "Home",
         components: { Cards },
-        props: [ "cards" ]
+        setup() {
+            const { cards, loadCards } = getCards()
+            loadCards()
+
+            const loadMoreCards = async () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                    window.removeEventListener("scroll", loadMoreCards)
+                    await loadCards()
+                    window.addEventListener("scroll", loadMoreCards)
+                }
+            }
+            onMounted(() => window.addEventListener("scroll", loadMoreCards))
+            onUnmounted(() => window.removeEventListener("scroll", loadMoreCards))
+
+            return { cards }
+        }
     }
 </script>
 

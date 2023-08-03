@@ -14,9 +14,7 @@
         name: "Search",
         components: { Cards },
         setup() {
-            const route = useRoute()
-
-            const query = route.query
+            const { query } = useRoute()
 
             const { searchCards, loadSearchCards } = getSearchCards(query)
             loadSearchCards()
@@ -28,14 +26,8 @@
                     window.addEventListener("scroll", loadMoreSearchCards)
                 }
             }
-
-            onMounted(() => {
-                window.addEventListener("scroll", loadMoreSearchCards)
-            })
-
-            onUnmounted(() => {
-                window.removeEventListener("scroll", loadMoreSearchCards)
-            })
+            onMounted(() => window.addEventListener("scroll", loadMoreSearchCards))
+            onUnmounted(() => window.removeEventListener("scroll", loadMoreSearchCards))
 
             return { searchCards }
         }
