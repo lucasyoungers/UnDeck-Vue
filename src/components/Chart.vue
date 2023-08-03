@@ -5,6 +5,7 @@
 </template>
 
 <script>
+    import _ from "chart.js/auto"  // can't remove this
     import { Bar } from "vue-chartjs"
     import { computed, ref } from "vue"
     import { storeToRefs } from "pinia"
