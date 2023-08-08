@@ -7,6 +7,7 @@
 <script>
     import Cards from "@/components/Cards"
     import getSearchCards from "@/composables/getSearchCards"
+    import useErrorStore from "@/stores/error"
     import { onMounted, onUnmounted } from "vue"
     import { useRoute } from "vue-router"
 
@@ -19,11 +20,17 @@
             const { searchCards, loadSearchCards } = getSearchCards(query)
             loadSearchCards()
 
+            const errorStore = useErrorStore()
+
             const loadMoreSearchCards = async () => {
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                     window.removeEventListener("scroll", loadMoreSearchCards)
                     await loadSearchCards()
                     window.addEventListener("scroll", loadMoreSearchCards)
+
+                    if (errorStore.cardsNotFound) {
+                        window.removeEventListener("scroll", loadMoreSearchCards)
+                    }
                 }
             }
             onMounted(() => window.addEventListener("scroll", loadMoreSearchCards))
