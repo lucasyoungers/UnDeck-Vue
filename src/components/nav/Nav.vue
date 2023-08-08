@@ -5,7 +5,9 @@
             <SearchBar />
             <DeckControls />
         </main>
-        <AdvancedMenu v-show="searchStore.advancedMenuIsOpen" />
+        <transition :css="false" @enter="enterTransition" @leave="leaveTransition">
+            <AdvancedMenu v-show="searchStore.advancedMenuIsOpen" />
+        </transition>
     </nav>
 </template>
 
@@ -15,6 +17,7 @@
     import DeckControls from "@/components/nav/DeckControls"
     import AdvancedMenu from "@/components/nav/AdvancedMenu"
     import useSearchStore from "@/stores/search"
+    import { enterTransition, leaveTransition } from "@/lib/animations"
 
     export default {
         name: "Nav",
@@ -22,7 +25,7 @@
         setup() {
             const searchStore = useSearchStore()
 
-            return { searchStore }
+            return { searchStore, enterTransition, leaveTransition }
         }
     }
 </script>
@@ -53,4 +56,19 @@
     main :deep(button:disabled) {
         pointer-events: none;
     }
+
+    /* .advanced-menu-slide-enter-from,
+    .advanced-menu-slide-leave-to {
+        opacity: 0;
+    }
+
+    .advanced-menu-slide-enter-active,
+    .advanced-menu-slide-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .advanced-menu-slide-enter-to,
+    .advanced-menu-sliide-leave-from {
+        opacity: 1;
+    } */
 </style>
