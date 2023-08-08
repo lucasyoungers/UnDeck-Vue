@@ -1,13 +1,27 @@
 <template>
-    <button>
+    <button :onClick="doShine" :class="{ shine: shine }">
         <i class="material-icons">{{ icon }}</i>
     </button>
 </template>
 
 <script>
+    import { ref } from "vue"
+
     export default {
         name: "Button",
-        props: [ "icon" ]
+        props: [ "icon" ],
+        setup() {
+            const shine = ref(false)
+
+            const doShine = () => {
+                shine.value = true
+                setTimeout(() => {
+                    shine.value = false
+                }, 250)
+            }
+
+            return { shine, doShine }
+        }
     }
 </script>
 

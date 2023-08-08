@@ -20,6 +20,33 @@
     to       { transform: scale(100%) }
 }
 
+@keyframes shine {
+    from { transform: translateX(-100%) }
+    to { transform: translateX(100%) }
+}
+
+.shine {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.shine::after {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    animation: shine 0.25s forwards;
+    background: linear-gradient(to top right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.8) 50%,
+        rgba(128,186,232,0) 99%,
+        rgba(125,185,232,0) 100%);
+}
+
 body {
     background-image: url("@/assets/images/subtle-pattern-vector.png");
     background-color: #baa8ca;
