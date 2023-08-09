@@ -1,7 +1,7 @@
 <template>
     <section>
         <label>{{ u_name }}</label>
-        <select :name="query" :ref="query" multiple>
+        <select :name="query" :ref="query" @change="onChange" multiple>
             <option
                 v-for="option in options"
                 :value="option"
@@ -11,13 +11,24 @@
 </template>
 
 <script>
+import useSearchStore from "@/stores/search"
+
 export default {
     name: "Multiselect",
     props: [ "u_name", "query", "options" ],
     setup(props) {
         const l_name = props.u_name.toLowerCase()
 
-        return { l_name }
+        const searchStore = useSearchStore()
+
+        const onChange = change => {
+            searchStore.setParam(
+                change.target.name,
+                [...change.target.selectedOptions].map(o => o.value)
+            )
+        }
+
+        return { l_name, onChange }
     }
 }
 </script>
