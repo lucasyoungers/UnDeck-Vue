@@ -31,10 +31,11 @@ app.get("/test", (req, res) => {
 app.get("/api/sets", async (req, res) => {
     try {
         const { series } = req.query
-        let sets = series
-            ? await pokemon.set.all({ q: `series:${series}` })
-            : await pokemon.set.all()
-        sets.sort((a, b) => b.releaseDate.localeCompare(a.releaseDate))
+        let query = { orderBy: "-releaseDate" }
+        if (series) {
+            query.q = `series:${series}`
+        }
+        const sets = await pokemon.set.all(query)
         res.json(sets)
     } catch (err) {
         res.status(500).type("text").send("Sets not found.")
