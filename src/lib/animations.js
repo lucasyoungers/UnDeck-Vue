@@ -67,7 +67,7 @@ export function enterTransition(el, callback) {
     const initialStyle = getElementStyle(el)
     const height = prepareElement(el, initialStyle)
     const keyframes = getEnterKeyframes(height, initialStyle)
-    const options = { duration: 150, easing: "ease-in-out" }
+    const options = { duration: 100, easing: "ease-in-out" }
     animateTransition(el, initialStyle, callback, keyframes, options)
 }
 
@@ -77,6 +77,6 @@ export function leaveTransition(el, callback) {
     el.style.height = height
     el.style.overflow = "hidden"
     const keyframes = getEnterKeyframes(height, initialStyle).reverse()
-    const options = { duration: 150, easing: "ease-in-out" }
+    const options = { duration: 100, easing: "ease-in-out" }
     animateTransition(el, initialStyle, callback, keyframes, options)
 }

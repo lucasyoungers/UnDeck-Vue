@@ -56,19 +56,4 @@
     main :deep(button:disabled) {
         pointer-events: none;
     }
-
-    /* .advanced-menu-slide-enter-from,
-    .advanced-menu-slide-leave-to {
-        opacity: 0;
-    }
-
-    .advanced-menu-slide-enter-active,
-    .advanced-menu-slide-leave-active {
-        transition: opacity 0.5s;
-    }
-
-    .advanced-menu-slide-enter-to,
-    .advanced-menu-sliide-leave-from {
-        opacity: 1;
-    } */
 </style>
