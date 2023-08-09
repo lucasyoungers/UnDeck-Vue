@@ -117,7 +117,7 @@ app.get("/api/search", async (req, res) => {
 
         const cards = await pokemon.card.where({
             q, pageSize, page,
-            orderBy: "-set.releaseDate, number"
+            orderBy: "-set.releaseDate,number"
         })
         res.json(cards)
     } catch (err) {
