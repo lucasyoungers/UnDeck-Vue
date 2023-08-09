@@ -2,11 +2,11 @@
     <section class="deck-io">
         <h3>Import/Export Deck</h3>
         <section class="deck-io-row">
-            <input ref="currDeckRef" type="text" v-model="currDeck" readonly>
+            <input type="text" :value="currDeck" readonly>
             <input type="button" value="Export" @click="getCurrDeck">
         </section>
         <section class="deck-io-row">
-            <input ref="newDeckRef" type="text" v-model="newDeck">
+            <input type="text" v-model="newDeck">
             <input type="button" value="Import" @click="setNewDeck">
         </section>
     </section>
@@ -14,34 +14,33 @@
 
 <script>
 import useDeckStore from "@/stores/deck"
-import { ref } from "vue"
+import { computed, ref } from "vue"
 
 export default {
     name: "DeckIO",
     setup() {
         const deckStore = useDeckStore()
-
-        const currDeck = ref(window.localStorage.deck)
+        const currDeck = computed({
+            get() {
+                return deckStore.deckString
+            },
+            set(deckString) {
+                deckStore.load(deckString)
+                window.localStorage.deck = deckString
+            }
+        })
         const newDeck = ref()
 
-        const currDeckRef = ref();
-        const newDeckRef = ref();
-
         const getCurrDeck = () => {
-            navigator.clipboard.writeText(window.localStorage.deck)
+            navigator.clipboard.writeText(currDeck.value)
         }
 
         const setNewDeck = () => {
-            window.localStorage.deck = newDeck.value
             currDeck.value = newDeck.value
             newDeck.value = ""
-            deckStore.load(currDeck.value)
         }
 
-        return {
-            currDeck, currDeckRef, getCurrDeck,
-            newDeck, newDeckRef, setNewDeck
-        }
+        return { currDeck, getCurrDeck, newDeck, setNewDeck }
     }
 }
 </script>
