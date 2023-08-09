@@ -30,6 +30,12 @@
         box-shadow: 0 0.2em 0.6em rgba(0, 0, 0, 0.5);
         position: relative;
         height: max-content;
+        transition: transform 0.25s;
+    }
+
+    article:hover {
+        transform: translateY(-8px);
+        transition: transform 0.25s;
     }
 
     img {
