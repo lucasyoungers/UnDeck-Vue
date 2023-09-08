@@ -8,27 +8,34 @@
 </template>
 
 <script>
-    import AddButton from "@/components/card/buttons/AddButton"
-    import RemoveButton from "@/components/card/buttons/RemoveButton"
-    import DownloadButton from "@/components/card/buttons/DownloadButton"
-    import ZoomButton from "@/components/card/buttons/ZoomButton"
+import AddButton from "@/components/card/buttons/AddButton"
+import RemoveButton from "@/components/card/buttons/RemoveButton"
+import DownloadButton from "@/components/card/buttons/DownloadButton"
+import ZoomButton from "@/components/card/buttons/ZoomButton"
 
-    export default {
-        name: "CardBottom",
-        components: { AddButton, RemoveButton, DownloadButton, ZoomButton },
-        props: [ "card" ]
-    }
+export default {
+    name: "CardBottom",
+    components: { AddButton, RemoveButton, DownloadButton, ZoomButton },
+    props: ["card"]
+}
 </script>
 
 <style scoped>
-    section {
-        display: flex;
-        height: 2.5em;
-    }
+section {
+    display: flex;
+    height: 2.5em;
+}
 
-    .card__bottom .icon {
-        margin: auto;
-        height: 50%;
-        aspect-ratio: 1 / 1;
-    }
+section>* {
+    flex: 1;
+    height: 100%;
+}
+
+section>*:first-child {
+    border-radius: 0 0 0 0.5em;
+}
+
+section>*:last-child {
+    border-radius: 0 0 0.5em 0;
+}
 </style>
