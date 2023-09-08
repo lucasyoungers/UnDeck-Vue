@@ -19,7 +19,6 @@
             const { query } = useRoute()
 
             const { searchCards, onLastPage, loadSearchCards } = getSearchCards(query)
-            loadSearchCards()
 
             const searching = ref(false)
 
@@ -47,8 +46,19 @@
                     }
                 }
             }
-            onMounted(() => window.addEventListener("scroll", loadMoreSearchCards))
-            onUnmounted(() => window.removeEventListener("scroll", loadMoreSearchCards))
+
+            onMounted(async () => {
+                await loadSearchCards()
+                if (!onLastPage.value) {
+                    window.addEventListener("scroll", loadMoreSearchCards)
+                }
+            })
+
+            onUnmounted(() => {
+                if (!onLastPage.value) {
+                    window.removeEventListener("scroll", loadMoreSearchCards)
+                }
+            })
 
             return { searchCards, searching }
         }
