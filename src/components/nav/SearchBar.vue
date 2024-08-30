@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="handleSubmit">
         <input v-model="name" type="text" placeholder="Search by Card Name">
-        <SearchButton :isDisabled="!searchStore.advancedMenuParams && !name" />
+        <SearchButton :isDisabled="isDisabled" />
         <AdvancedButton />
     </form>
 </template>
@@ -10,7 +10,7 @@
     import SearchButton from "@/components/nav/buttons/SearchButton"
     import AdvancedButton from "@/components/nav/buttons/AdvancedButton"
     import useSearchStore from "@/stores/search"
-    import { ref } from "vue"
+    import { ref, computed } from "vue"
     import { useRouter } from "vue-router"
 
     export default {
@@ -22,6 +22,8 @@
             const searchStore = useSearchStore()
 
             const name = ref("")
+
+            const isDisabled = computed(() => searchStore.advancedMenuParams.length === 0 && !name.value)
 
             const handleSubmit = async () => {
                 if (searchStore.advancedMenuParams.length === 0 && name.value === "") return
@@ -43,7 +45,7 @@
                 router.push({ name: "Search", query })
             }
 
-            return { name, searchStore, handleSubmit }
+            return { name, isDisabled, searchStore, handleSubmit }
         }
     }
 </script>
