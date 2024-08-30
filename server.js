@@ -4,9 +4,12 @@
 const express = require("express")
 const axios = require("axios")
 const bodyParser = require("body-parser")
+const fs = require("fs").promises
 const path = require("path")
 const pokemon = require("pokemontcgsdk")
+const yaml = require("yaml-front-matter")
 const { jsPDF } = require("jspdf")
+const { marked } = require("marked")
 
 const cors = require("cors") // TODO: remove
 
@@ -152,6 +155,31 @@ app.get("/api/pdf/:deckString", async (req, res) => {
     } catch (err) {
         res.status(500).send("We can't build your deck, have you tried unsleeving it and resleeving it again?")
     }
+})
+
+// posts endpoint
+app.get("/api/blog/posts", async (req, res) => {
+    const { pageSize = 10, page = 1 } = req.query
+
+    const filenames = await fs.readdir("blog")
+
+    const files = await Promise.all(filenames.map(async file => {
+        const path = "blog/" + file
+        const raw = await fs.readFile(path, "utf-8")
+        const frontmatter = yaml.loadFront(raw)
+        const content = await marked.parse(frontmatter.__content)
+        const stats = await fs.stat(path)
+        const date = stats.ctime
+        return { date, frontmatter, content }
+    }))
+
+    files.sort((a, b) => b.date - a.date)
+
+    const filePage = files.slice((page - 1) * pageSize, (page - 1) * pageSize - 1)
+
+    console.log(filePage)
+
+    res.json(filePage)
 })
 
 // send file backup endpoint
