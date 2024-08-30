@@ -71,6 +71,7 @@
                     >{{ card.set.name }}</a>
                     <a
                         class="modal-subtype"
+                        v-if="card.rarity !== undefined"
                         :href="makeSearchURL(`rarity`, card.rarity)"
                         :key="card.rarity"
                     >{{ card.rarity }}</a>
