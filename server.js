@@ -98,7 +98,7 @@ app.get("/api/search", async (req, res) => {
         let q = []
 
         // manually add important parameters
-        const { name, pageSize = 1, page = 1 } = req.query
+        const { name = "", pageSize = 1, page = 1 } = req.query
         const queryObject = {}
         queryObject.name = ["N", "AZ"].includes(name)
             ? name  // hardcoded exact search
