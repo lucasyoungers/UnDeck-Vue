@@ -11,7 +11,7 @@ const useSearchStore = defineStore("search", {
         toggleAdvancedMenu() {
             this.advancedMenuIsOpen ^= true
         },
-        setParam(name, options) {
+        setParam(name, options, isOr=false) {
             const param = this.advancedMenuParams.find(param => param.name === name)
             if (param) {
                 if (options.length === 0) {
@@ -21,7 +21,7 @@ const useSearchStore = defineStore("search", {
                 }
             } else {
                 if (options.length !== 0) {
-                    this.advancedMenuParams = [{ name, options }, ...this.advancedMenuParams]
+                    this.advancedMenuParams = [{ name, options, isOr }, ...this.advancedMenuParams]
                 }
             }
         }

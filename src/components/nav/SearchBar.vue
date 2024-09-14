@@ -26,7 +26,7 @@
             const isDisabled = computed(() => searchStore.advancedMenuParams.length === 0 && !name.value)
 
             const handleSubmit = async () => {
-                if (searchStore.advancedMenuParams.length === 0 && name.value === "") return
+                // if (searchStore.advancedMenuParams.length === 0 && name.value === "") return
 
                 let query = {}
 
@@ -37,9 +37,18 @@
 
                 if (searchStore.advancedMenuParams.length !== 0) {
                     query.q = searchStore.advancedMenuParams
-                        .map(({ name, options }) => `${name}:"${options.join("|")}"`)
+                        .map(({ name, options, isOr }) => {
+                            if (isOr) {
+                                const names = name.split(",")
+                                const orSet = names.map((n, i) => `${n}:"${options.join("|")}"`)
+                                return `(${orSet.join(" OR ")})`
+                            } else {
+                                return `${name}:"${options.join("|")}"`
+                            }
+                        })
                         .filter(param => param.slice(param.length - 2) !== `""`)
                         .join(" ")
+                    console.log(query.q)
                 }
 
                 router.push({ name: "Search", query })
