@@ -66,10 +66,6 @@
 </script>
 
 <style scoped>
-    .search {
-        /* margin: 0 var(--gap) var(--gap); */
-    }
-
     .spinner {
         margin: 2rem auto;
     }

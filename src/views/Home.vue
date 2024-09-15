@@ -49,10 +49,6 @@
 </script>
 
 <style scoped>
-    .home {
-        /* margin: 0 var(--gap) var(--gap); */
-    }
-
     .spinner {
         margin: 2rem auto;
     }

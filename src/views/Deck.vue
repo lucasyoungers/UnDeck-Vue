@@ -23,7 +23,6 @@
 
 <style scoped>
     .deck {
-        /* margin: 0 var(--gap) var(--gap); */
         display: flex;
         column-gap: var(--gap);
         row-gap: var(--gap);
