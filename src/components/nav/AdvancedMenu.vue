@@ -26,9 +26,40 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         column-gap: var(--gap);
+        row-gap: var(--gap);
         background-color: rgba(255, 255, 255, 0.65);
         padding: var(--gap);
         border-radius: 0.5rem;
+    }
+
+    @media screen and (max-width: 1200px) {
+        form {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        form {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        form {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        form {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        form {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 
     :deep(section) {
@@ -47,6 +78,7 @@
         -ms-overflow-style: none;
         border-radius: 0.25em;
         height: 10rem;
+        width: 100%;
     }
 
     :deep(select::-webkit-scrollbar) {

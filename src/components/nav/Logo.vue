@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ name: 'Home' }">
-        <h1>UnDeck</h1>
+        UnDeck
     </router-link>
 </template>
 
@@ -25,19 +25,26 @@
     }
 
     a {
-        text-decoration: none;
         color: black !important;
-    }
-
-    h1 {
-        font-size: var(--nav-height) !important;
-        font-family: "Unown";
-        text-transform: uppercase;
         cursor: pointer;
+        font-family: "Unown";
+        font-weight: bold;
+        max-width: fit-content;
+        text-decoration: none;
+        text-transform: uppercase;
         user-select: none;
     }
+    
+    a.logo-top {
+        margin: 0 auto;
+        font-size: calc(1*var(--nav-height)) !important;
+    }
 
-    h1:hover {
+    a.logo-inline {
+        font-size: var(--nav-height) !important;
+    }
+
+    a:hover {
         animation: logo-tada 1s;
     }
 </style>

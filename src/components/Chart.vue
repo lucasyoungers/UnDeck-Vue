@@ -49,7 +49,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .chart-container {
         position: relative;
         width: 40vw;

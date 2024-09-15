@@ -11,3 +11,9 @@
         props: [ "isDisabled" ]
     }
 </script>
+
+<style scoped>
+    button {
+        margin-right: 1px;
+    }
+</style>
