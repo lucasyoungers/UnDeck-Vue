@@ -27,7 +27,7 @@
                 if (searchCards.value.length === 0) return
 
                 // if the user has scrolled to the bottom, fetch more cards, assuming there are any
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1) {
                     // don't allow loading more until this batch is loaded
                     window.removeEventListener("scroll", loadMoreSearchCards)
 
@@ -67,7 +67,7 @@
 
 <style scoped>
     .search {
-        margin: 0 var(--gap) var(--gap);
+        /* margin: 0 var(--gap) var(--gap); */
     }
 
     .spinner {

@@ -83,7 +83,7 @@
     }
 
     @media screen and (max-width: 992px) {
-        main {
+        main.cards {
             grid-template-columns: repeat(4, 1fr);
         }
 
@@ -93,7 +93,7 @@
     }
 
     @media screen and (max-width: 768px) {
-        main {
+        main.cards {
             grid-template-columns: repeat(3, 1fr);
         }
 
@@ -103,7 +103,11 @@
     }
 
     @media screen and (max-width: 576px) {
-        main {
+        main.cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        main.deck-cards {
             grid-template-columns: repeat(2, 1fr);
         }
     }

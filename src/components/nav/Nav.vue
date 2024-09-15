@@ -1,13 +1,23 @@
 <template>
     <nav>
+        <Logo class="logo-top" />
         <main>
-            <Logo />
+            <Logo class="logo-inline" />
             <SearchBar />
-            <DeckControls />
+            <DeckControls class="dc-inline" />
         </main>
         <transition :css="false" @enter="enterTransition" @leave="leaveTransition">
             <AdvancedMenu v-show="searchStore.advancedMenuIsOpen" />
         </transition>
+        <DeckControls class="dc-bottom" />
+
+        <!-- <main style="margin-top: 18px;">
+            <form>
+                <input type="text">
+                <button>S</button>
+                <button>A</button>
+            </form>
+        </main> -->
     </nav>
 </template>
 
@@ -32,9 +42,10 @@
 
 <style scoped>
     nav {
-        padding: 1.5% var(--gap);
-        display: grid;
-        row-gap: var(--gap);
+        margin-bottom: var(--gap);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);
     }
 
     nav :deep(*) {
@@ -43,17 +54,52 @@
 
     main {
         display: flex;
-        flex-wrap: wrap;
         gap: var(--gap);
         justify-content: center;
         align-items: center;
     }
 
-    main :deep(button) {
-        margin-right: 1px;
-    }
-
     main :deep(button:disabled) {
         pointer-events: none;
+    }
+
+    .logo-top { display: none; }
+    .logo-inline {  display: block; }
+    .dc-inline { display: flex; }
+    .dc-bottom { display: none; }
+
+    @media screen and (max-width: 1200px) {
+        .logo-top { display: none; }
+        .logo-inline {  display: block; }
+        .dc-inline { display: flex; }
+        .dc-bottom { display: none; }
+    }
+
+    @media screen and (max-width: 992px) {
+        .logo-top { display: none; }
+        .logo-inline {  display: block; }
+        .dc-inline { display: flex; }
+        .dc-bottom { display: none; }
+    }
+
+    @media screen and (max-width: 768px) {
+        .logo-top { display: block; }
+        .logo-inline {  display: none; }
+        .dc-inline { display: flex; }
+        .dc-bottom { display: none; }
+    }
+
+    @media screen and (max-width: 576px) {
+        .logo-top { display: block; }
+        .logo-inline {  display: none; }
+        .dc-inline { display: none; }
+        .dc-bottom { display: flex; }
+    }
+
+    @media screen and (max-width: 320px) {
+        .logo-top { display: block; }
+        .logo-inline {  display: none; }
+        .dc-inline { display: none; }
+        .dc-bottom { display: flex; }
     }
 </style>

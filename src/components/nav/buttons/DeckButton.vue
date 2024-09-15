@@ -24,5 +24,6 @@
 <style scoped>
     a {
         text-decoration: none;
+        margin-right: 1px;
     }
 </style>

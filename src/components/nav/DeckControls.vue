@@ -18,5 +18,6 @@
 <style scoped>
     section {
         display: flex;
+        margin: 0 auto;
     }
 </style>

@@ -54,12 +54,14 @@
     form {
         flex: 1;
         display: flex;
+        width: 100%;
     }
 
     input {
         padding-left: 15px;
         border: none;
         border-radius: var(--radius) 0 0 var(--radius);
-        flex: 1;
+        flex: 2;
+        min-width: 0;
     }
 </style>
