@@ -78,6 +78,7 @@
         -ms-overflow-style: none;
         border-radius: 0.25em;
         height: 10rem;
+        width: 100%;
     }
 
     :deep(select::-webkit-scrollbar) {

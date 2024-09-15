@@ -32,9 +32,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-    select {
-        /* overflow-x: hidden; */
-    }
-</style>
