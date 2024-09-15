@@ -26,8 +26,6 @@
             const isDisabled = computed(() => searchStore.advancedMenuParams.length === 0 && !name.value)
 
             const handleSubmit = async () => {
-                // if (searchStore.advancedMenuParams.length === 0 && name.value === "") return
-
                 let query = {}
 
                 if (query.name !== "") {
@@ -48,7 +46,6 @@
                         })
                         .filter(param => param.slice(param.length - 2) !== `""`)
                         .join(" ")
-                    console.log(query.q)
                 }
 
                 router.push({ name: "Search", query })

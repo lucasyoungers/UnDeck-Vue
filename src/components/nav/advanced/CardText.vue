@@ -1,6 +1,7 @@
 <template>
     <section>
-        <input type="text" placeholder="Card Text" name="abilities.name,abilities.text,attacks.name,attacks.text" @input="onChange">
+        <label>Card Text</label>
+        <input type="text" placeholder="Search by Card Text" name="abilities.name,abilities.text,attacks.name,attacks.text" @input="onChange">
     </section>
 </template>
 
@@ -24,3 +25,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    input {
+        padding: 5px;
+        border: none;
+        border-radius: var(--radius);
+    }
+</style>

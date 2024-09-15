@@ -17,7 +17,6 @@ function getElementStyle(el) {
 }
 
 function prepareElement(el, initialStyle) {
-    // console.log(initialStyle)
     const { width } = getComputedStyle(el)
     el.style.width = width
     el.style.position = "absolute"
