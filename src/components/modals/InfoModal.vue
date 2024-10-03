@@ -99,6 +99,9 @@
 
 <style scoped>
     .modal-wrapper {
+        max-height: 80vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
         width: 640px;
         background-color: white;
         border-radius: 1rem;
@@ -217,5 +220,70 @@
         height: 1.5em;
         width: 1.5em;
         padding-left: 0.125em;
+    }
+
+    @media screen and (max-width: 768px) {
+        .modal-wrapper {
+            width: 90vw;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .modal-wrapper {
+            width: 90vw;
+        }
+
+        .modal-ability-type, .modal-ability-name, .modal-attack-name, .modal-damage {
+            font-size: 1.5em;
+        }
+
+        .modal-attack-icon {
+            height: 1.5em;
+            width: 1.5em;
+        }
+
+        .modal-wrrc {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .modal-wrapper {
+            width: 90vw;
+        }
+
+        .modal-name, .modal-hp {
+            font-size: 1.25em;
+        }
+
+        .modal-type {
+            width: calc(1.5 * 1.25em);
+            height: calc(1.5 * 1.25em);
+            padding-left: calc(0.25 * 1.25em);
+        }
+
+        .modal-ability-type, .modal-ability-name, .modal-attack-name, .modal-damage {
+            font-size: 1.25em;
+        }
+
+        .modal-attack-icon {
+            height: 1.25em;
+            width: 1.25em;
+        }
+
+        .modal-rule, .modal-ability-effect, .modal-attack-effect {
+            font-size: 0.85em;
+        }
+
+        .modal-subtype {
+            font-size: 0.75em;
+            padding: 0.2em 0.75em;
+        }
+
+        .modal-wrrc {
+            display: flex;
+            flex-direction: column;
+        }
     }
 </style>
