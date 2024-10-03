@@ -20,7 +20,42 @@
 
 <style scoped>
     .modal-image {
-        height: 95vh;
+        height: 90vh;
         width: auto;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .modal-image {
+            height: 90vh;
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .modal-image {
+            height: 90vh;
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .modal-image {
+            height: 90vh;
+            width: auto;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .modal-image {
+            height: auto;
+            width: 90vw;
+        }
+    }
+
+    @media screen and (max-width: 320px) {
+        .modal-image {
+            height: auto;
+            width: 90vw;
+        }
     }
 </style>
