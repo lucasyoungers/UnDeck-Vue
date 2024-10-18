@@ -14,7 +14,6 @@
         name: "App",
         components: { Nav, Modal },
         setup() {
-            console.log(process.env)
             const deckStore = useDeckStore()
             if (localStorage.deck) {
                 deckStore.load(localStorage.deck)
