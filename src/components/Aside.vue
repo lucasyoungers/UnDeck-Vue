@@ -55,4 +55,8 @@
         align-items: center;
         padding: 12px;
     }
+
+    button:hover {
+        background-color: var(--p-dark-purple);
+    }
 </style>

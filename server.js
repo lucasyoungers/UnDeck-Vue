@@ -203,18 +203,15 @@ app.get("/api/db/get/:id", async (req, res) => {
 
 app.post("/api/db/post", async (req, res) => {
     const token = req.headers["x-api-key"]
-    console.log(token)
-    console.log(process.env.DB_API_KEY)
     if (token !== process.env.DB_API_KEY) {
         res.status(403).json({ error: "Forbidden" })
     } else {
         const sql = `INSERT INTO decks (deckString) VALUES (?)`
-        console.log(req.body)
-        req.db.run(sql, [req.body.deckString], err => {
+        req.db.run(sql, [req.body.deckString], function (err) {
             if (err) {
                 res.status(500).json({ error: err.message })
             } else {
-                res.json({ message: "Success" })
+                res.json({ id: this.lastID })
             }
         })
     }
