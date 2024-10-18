@@ -1,6 +1,6 @@
 <template>
     <section>
-        <AddButton :card="card" />
+        <AddButton v-if="$route.name !== 'Saved Deck'" :card="card" />
         <RemoveButton v-if="$route.name === 'Deck'" :card="card" />
         <DownloadButton :card="card" />
         <ZoomButton :card="card" />
