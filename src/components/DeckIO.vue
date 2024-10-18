@@ -1,4 +1,5 @@
 <template>
+    <p v-if="$route.name === 'Deck'">Disclaimer: Saving decks is an experimental feature that is currently in active development. Any decks saved during this time will be subject to deletion.</p>
     <button v-if="$route.name === 'Deck'" @click="saveDeck">Save Deck</button>
     <button v-if="$route.name === 'Saved Deck'" @click="forkDeck">Fork Deck</button>
 </template>
@@ -38,6 +39,11 @@ export default {
 </script>
 
 <style scoped>
+    p {
+        max-width: 40vw;
+        color: var(--p-light-purple);
+    }
+
     button {
         width: 100%;
         height: 2.5em;
