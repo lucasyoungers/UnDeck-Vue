@@ -277,5 +277,3 @@ function objectToQuery(obj) {
 const PORT = process.env.PORT || 3080
 app.listen(PORT)
 console.log(`Listening at port ${PORT}`)
-console.log(process.env.TEST)
-console.log(process.env.VUE_APP_TEST)
