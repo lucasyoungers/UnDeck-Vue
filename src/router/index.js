@@ -17,6 +17,11 @@ const routes = [
         path: "/deck",
         name: "Deck",
         component: lazyLoad("Deck")
+    },
+    {
+        path: "/deck/:id",
+        name: "Saved Deck",
+        component: lazyLoad("SavedDeck")
     }
 ]
 

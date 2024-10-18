@@ -1,6 +1,7 @@
 "use strict"
 
 // Requires
+require("dotenv").config()
 const express = require("express")
 const axios = require("axios")
 const bodyParser = require("body-parser")
@@ -10,11 +11,35 @@ const { jsPDF } = require("jspdf")
 
 const cors = require("cors") // TODO: remove
 
+// DB Setup
+const db = require("./db")
+
+// const createTableQuery = `
+//     CREATE TABLE IF NOT EXISTS decks (
+//         id INTEGER PRIMARY KEY,
+//         deckString TEXT
+//     )
+// `
+
+// db.serialize(() => {
+//     db.run(createTableQuery, err => {
+//         if (err) {
+//             console.error("Error creating table: ", err.message)
+//         } else {
+//             console.log("Table created successfully.")
+//         }
+//     })
+// })
+
 // App Setup
 const app = express()
 app.use(bodyParser.json())
 app.use(cors()) // TODO: remove
 app.use(express.static(path.join(__dirname, "dist")))
+app.use((req, _, next) => {
+    req.db = db
+    next()
+})
 
 // API Key Setup
 const KEY = process.env.POKEMON_API_KEY
@@ -24,7 +49,7 @@ pokemon.configure({ apiKey: KEY })
 // Endpoints
 // =========
 
-app.get("/test", (req, res) => {
+app.get("/test", (_, res) => {
     res.type("text").send("working!");
 })
 
@@ -151,6 +176,44 @@ app.get("/api/pdf/:deckString", async (req, res) => {
         res.type("pdf").send(buffer)
     } catch (err) {
         res.status(500).send("We can't build your deck, have you tried unsleeving it and resleeving it again?")
+    }
+})
+
+app.get("/api/db/getall", async (req, res) => {
+    const sql = `SELECT deckString FROM decks`
+    req.db.all(sql, [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message })
+        } else {
+            res.json(rows)
+        }
+    })
+})
+
+app.get("/api/db/get/:id", async (req, res) => {
+    const sql = `SELECT deckString FROM decks WHERE id = ?`
+    req.db.get(sql, [req.params.id], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message })
+        } else {
+            res.json(row)
+        }
+    })
+})
+
+app.post("/api/db/post", async (req, res) => {
+    const token = req.headers["x-api-key"]
+    if (token !== process.env.DB_API_KEY) {
+        res.status(403).json({ error: "Forbidden" })
+    } else {
+        const sql = `INSERT INTO decks (deckString) VALUES (?)`
+        req.db.run(sql, [req.body.deckString], function (err) {
+            if (err) {
+                res.status(500).json({ error: err.message })
+            } else {
+                res.json({ id: this.lastID })
+            }
+        })
     }
 })
 
